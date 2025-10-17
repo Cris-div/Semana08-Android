@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -197,17 +198,124 @@ fun CoursesScreen(navController: NavController) {
 
 @Composable
 fun InstructorsScreen(navController: NavController) {
+    val instructors = listOf(
+        Triple("Elliot", "Kotlin / Android", R.drawable.ic_launcher_background),
+        Triple("Silvia", "Gestión de TI", R.drawable.ic_launcher_background),
+        Triple("Farfán", "Bases de Datos", R.drawable.ic_launcher_background)
+    )
 
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        items(instructors.size) { i ->
+            val inst = instructors[i]
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(6.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    // Imagen o avatar del instructor
+                    Image(
+                        painter = painterResource(id = inst.third),
+                        contentDescription = inst.first,
+                        modifier = Modifier.size(80.dp)
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    // Información textual
+                    Column {
+                        Text(
+                            text = inst.first,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        Text(
+                            text = inst.second,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun EventsScreen(navController: NavController) {
+    val events = listOf(
+        Triple("15 Oct", "Feria de Proyectos", "Auditorio A"),
+        Triple("20 Oct", "Charla de Innovación", "Sala B"),
+        Triple("25 Oct", "Hackathon TECSUP", "Laboratorio 3")
+    )
 
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        items(events.size) { i ->
+            val event = events[i]
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(6.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = " ${event.first}",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = " ${event.second}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Text(
+                        text = " ${event.third}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable
 fun AboutScreen(navController: NavController) {
-
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(6.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "Aplicación: TECSUP Campus",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = "Versión: 1.0",
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Text(
+                text = "Autor: Curso TECSUP – Jetpack Compose",
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+    }
 }
 
 
